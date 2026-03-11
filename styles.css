@@ -1,0 +1,195 @@
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --primary: #1363df;
+  --accent: #00a896;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #dbe3ee;
+  --danger: #e63946;
+  --warn: #f4a261;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #0d1b2a;
+  color: #fff;
+}
+
+.brand-wrap { display: flex; align-items: center; gap: 0.75rem; }
+.brand-wrap h1 { margin: 0; font-size: 1.1rem; }
+.brand-wrap p { margin: 0; font-size: 0.75rem; color: #b7c6d9; }
+.brand-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.7rem;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  font-weight: 700;
+}
+
+.main-nav { display: flex; gap: 0.8rem; }
+.main-nav a {
+  color: #d5e5f9;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+}
+.main-nav a:hover { background: #1b2f46; }
+.menu-toggle { display: none; }
+
+main {
+  max-width: 1100px;
+  margin: 1rem auto;
+  padding: 0 1rem 2rem;
+}
+
+.section { margin-bottom: 1rem; }
+.section h2 { font-size: 1.3rem; margin: 0 0 0.8rem; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+.stat p { margin: 0; color: var(--muted); font-size: 0.82rem; }
+.stat strong { font-size: 1.4rem; }
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.card h3 { margin: 0; font-size: 1.05rem; }
+
+input, select {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  max-width: 260px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+.tag {
+  border: 1px solid var(--border);
+  background: #eff4fb;
+  color: #29486d;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.tag.active { background: #d9e8ff; border-color: #a6c8ff; }
+
+.list { display: grid; gap: 0.55rem; }
+.item {
+  border: 1px solid var(--border);
+  border-radius: 0.7rem;
+  padding: 0.65rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+.item h4 { margin: 0 0 0.2rem; font-size: 0.92rem; }
+.item p { margin: 0; color: var(--muted); font-size: 0.8rem; }
+.badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.badge.available { background: #ddf7e7; color: #106532; }
+.badge.in-use { background: #e0ecff; color: #1f4db1; }
+.badge.maintenance { background: #fff0d9; color: #9a5800; }
+.badge.critical { background: #ffe0e3; color: #a91d2d; }
+.primary-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.55rem;
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid #39516e;
+    background: #14253a;
+    color: #fff;
+    border-radius: 0.55rem;
+  }
+  .main-nav {
+    display: none;
+    position: absolute;
+    right: 1rem;
+    top: 3.4rem;
+    flex-direction: column;
+    background: #102033;
+    border: 1px solid #2f4662;
+    border-radius: 0.5rem;
+    padding: 0.45rem;
+  }
+  .main-nav.open { display: flex; }
+  .card-head { flex-direction: column; align-items: stretch; }
+}
