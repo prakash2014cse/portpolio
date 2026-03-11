@@ -1,0 +1,21 @@
+{
+  "workers": [
+    {"id": "W-001", "name": "Arun Kumar", "skill": "Welder", "availability": "available", "experience": 6},
+    {"id": "W-002", "name": "Priya Singh", "skill": "Electrician", "availability": "in-use", "experience": 4},
+    {"id": "W-003", "name": "Javed Ali", "skill": "Machine Operator", "availability": "available", "experience": 8},
+    {"id": "W-004", "name": "Kiran Das", "skill": "Supervisor", "availability": "in-use", "experience": 10},
+    {"id": "W-005", "name": "Meena Raj", "skill": "Rigger", "availability": "available", "experience": 3}
+  ],
+  "equipment": [
+    {"id": "E-001", "name": "Hydraulic Crane", "status": "in-use", "nextService": "2026-07-15"},
+    {"id": "E-002", "name": "Portable Generator", "status": "available", "nextService": "2026-06-22"},
+    {"id": "E-003", "name": "Safety Harness Kit", "status": "available", "nextService": "2026-09-01"},
+    {"id": "E-004", "name": "Forklift", "status": "maintenance", "nextService": "2026-04-12"},
+    {"id": "E-005", "name": "Concrete Mixer", "status": "in-use", "nextService": "2026-08-06"}
+  ],
+  "allocations": [
+    {"project": "Metro Expansion Site-A", "workers": 8, "equipment": 3, "priority": "High"},
+    {"project": "Steel Plant Unit 4", "workers": 5, "equipment": 2, "priority": "Medium"},
+    {"project": "Industrial Park Warehouse", "workers": 6, "equipment": 2, "priority": "Low"}
+  ]
+}
