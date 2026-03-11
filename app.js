@@ -15,8 +15,41 @@ const el = {
   allocationList: document.getElementById('allocationList'),
   addDemoRequest: document.getElementById('addDemoRequest'),
   menuToggle: document.getElementById('menuToggle'),
-  mainNav: document.getElementById('mainNav')
+  mainNav: document.getElementById('mainNav'),
+  allocationForm: document.getElementById('allocationForm'),
+  projectName: document.getElementById('projectName'),
+  workersNeeded: document.getElementById('workersNeeded'),
+  equipmentNeeded: document.getElementById('equipmentNeeded'),
+  prioritySelect: document.getElementById('prioritySelect'),
+  allocationMsg: document.getElementById('allocationMsg')
 };
+
+
+function updateMessage(text, type = '') {
+  el.allocationMsg.textContent = text;
+  el.allocationMsg.className = `status-msg ${type}`.trim();
+}
+
+function getAvailableWorkersCount() {
+  return state.raw.workers.filter(w => w.availability === 'available').length;
+}
+
+function getAvailableEquipmentCount() {
+  return state.raw.equipment.filter(e => e.status === 'available').length;
+}
+
+function reserveResources(workersNeeded, equipmentNeeded) {
+  const freeWorkers = state.raw.workers.filter(w => w.availability === 'available').slice(0, workersNeeded);
+  const freeEquipment = state.raw.equipment.filter(e => e.status === 'available').slice(0, equipmentNeeded);
+
+  freeWorkers.forEach(worker => {
+    worker.availability = 'in-use';
+  });
+
+  freeEquipment.forEach(equipment => {
+    equipment.status = 'in-use';
+  });
+}
 
 function renderStats() {
   const workers = state.raw.workers;
@@ -115,6 +148,41 @@ function bindEvents() {
     });
     renderAllocations();
     renderStats();
+    updateMessage('Demo allocation added.', 'success');
+  });
+
+  el.allocationForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const project = el.projectName.value.trim();
+    const workersNeeded = Number(el.workersNeeded.value);
+    const equipmentNeeded = Number(el.equipmentNeeded.value);
+    const priority = el.prioritySelect.value;
+
+    if (!project) {
+      updateMessage('Project name is required.', 'error');
+      return;
+    }
+
+    if (workersNeeded > getAvailableWorkersCount() || equipmentNeeded > getAvailableEquipmentCount()) {
+      updateMessage('Not enough available manpower/equipment for this assignment.', 'error');
+      return;
+    }
+
+    reserveResources(workersNeeded, equipmentNeeded);
+    state.raw.allocations.unshift({
+      project,
+      workers: workersNeeded,
+      equipment: equipmentNeeded,
+      priority
+    });
+
+    renderStats();
+    renderWorkers();
+    renderEquipment();
+    renderAllocations();
+    updateMessage('Resources assigned successfully.', 'success');
+    el.allocationForm.reset();
   });
 
   el.menuToggle.addEventListener('click', () => {

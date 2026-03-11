@@ -62,6 +62,18 @@
         <h3>Project Allocations</h3>
         <button id="addDemoRequest" class="primary-btn">Create Demo Allocation</button>
       </div>
+      <form id="allocationForm" class="allocation-form">
+        <input id="projectName" type="text" placeholder="Project name" required />
+        <input id="workersNeeded" type="number" min="1" placeholder="Workers needed" required />
+        <input id="equipmentNeeded" type="number" min="1" placeholder="Equipment needed" required />
+        <select id="prioritySelect" required>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <button type="submit" class="primary-btn">Assign Resources</button>
+      </form>
+      <p id="allocationMsg" class="status-msg" aria-live="polite"></p>
       <div id="allocationList" class="list"></div>
     </section>
   </main>

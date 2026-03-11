@@ -193,3 +193,33 @@ footer {
   .main-nav.open { display: flex; }
   .card-head { flex-direction: column; align-items: stretch; }
 }
+
+.allocation-form {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.status-msg {
+  min-height: 1.2rem;
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.status-msg.error {
+  color: #b42318;
+}
+
+.status-msg.success {
+  color: #027a48;
+}
+
+@media (max-width: 900px) {
+  .allocation-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .allocation-form { grid-template-columns: 1fr; }
+}

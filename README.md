@@ -10,6 +10,7 @@ A mobile-responsive hybrid web app demo for managing:
 - Worker roster with skill tag filters and search
 - Equipment status tracking (available / in-use / maintenance)
 - Project allocation board with one-click demo request creation
+- Allocation form to assign manpower/equipment with availability checks
 - Mock JSON data source (`data/mock-data.json`)
 
 ## Run locally
