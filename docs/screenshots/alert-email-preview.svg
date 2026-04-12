@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
+  <rect width="1280" height="720" fill="#f4f7fb"/>
+  <rect width="1280" height="70" fill="#1976d2"/>
+  <text x="24" y="44" font-size="28" fill="white" font-family="Arial">Screen 3: Alert Email Preview</text>
+  <rect x="40" y="100" width="1200" height="580" fill="#111827" stroke="#d0d7de"/>
+  <text x="70" y="150" font-size="22" font-family="Courier New" fill="#e5e7eb">Subject: ALERT - Direct Prod Single SMS Node2 is DOWN</text>
+  <text x="70" y="200" font-size="20" font-family="Courier New" fill="#e5e7eb">- Resource: Direct Prod Single SMS Node2</text>
+  <text x="70" y="240" font-size="20" font-family="Courier New" fill="#e5e7eb">- Environment: Production</text>
+  <text x="70" y="280" font-size="20" font-family="Courier New" fill="#e5e7eb">- App Server: TOMCAT</text>
+  <text x="70" y="320" font-size="20" font-family="Courier New" fill="#e5e7eb">- Context Path: /sms</text>
+  <text x="70" y="360" font-size="20" font-family="Courier New" fill="#e5e7eb">- Reason: Connection refused</text>
+  <text x="70" y="400" font-size="20" font-family="Courier New" fill="#e5e7eb">- Detector: Applications Manager</text>
+</svg>

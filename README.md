@@ -153,3 +153,16 @@ curl http://localhost:8080/api/monitors
 ```bash
 curl http://localhost:8080/api/alerts/email-preview/1
 ```
+
+---
+
+## Screenshots
+
+### 1) Dashboard overview
+![Dashboard overview](docs/screenshots/dashboard-overview.svg)
+
+### 2) Add monitor form
+![Add monitor form](docs/screenshots/add-monitor-form.svg)
+
+### 3) Alert email preview
+![Alert email preview](docs/screenshots/alert-email-preview.svg)
