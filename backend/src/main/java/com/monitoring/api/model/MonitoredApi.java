@@ -7,6 +7,8 @@ public class MonitoredApi {
     private String name;
     private String environment;
     private String url;
+    private String contextPath;
+    private AppServerType serverType;
     private int expectedTimeoutMs;
     private MonitorStatus status;
     private int responseTimeMs;
@@ -16,11 +18,13 @@ public class MonitoredApi {
     public MonitoredApi() {
     }
 
-    public MonitoredApi(Long id, String name, String environment, String url, int expectedTimeoutMs, MonitorStatus status) {
+    public MonitoredApi(Long id, String name, String environment, String url, String contextPath, AppServerType serverType, int expectedTimeoutMs, MonitorStatus status) {
         this.id = id;
         this.name = name;
         this.environment = environment;
         this.url = url;
+        this.contextPath = contextPath;
+        this.serverType = serverType;
         this.expectedTimeoutMs = expectedTimeoutMs;
         this.status = status;
         this.lastCheckedAt = Instant.now();
@@ -34,6 +38,10 @@ public class MonitoredApi {
     public void setEnvironment(String environment) { this.environment = environment; }
     public String getUrl() { return url; }
     public void setUrl(String url) { this.url = url; }
+    public String getContextPath() { return contextPath; }
+    public void setContextPath(String contextPath) { this.contextPath = contextPath; }
+    public AppServerType getServerType() { return serverType; }
+    public void setServerType(AppServerType serverType) { this.serverType = serverType; }
     public int getExpectedTimeoutMs() { return expectedTimeoutMs; }
     public void setExpectedTimeoutMs(int expectedTimeoutMs) { this.expectedTimeoutMs = expectedTimeoutMs; }
     public MonitorStatus getStatus() { return status; }

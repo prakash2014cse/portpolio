@@ -1,5 +1,7 @@
 package com.monitoring.api.service;
 
+import com.monitoring.api.dto.CreateMonitorRequest;
+import com.monitoring.api.model.AppServerType;
 import com.monitoring.api.model.Incident;
 import com.monitoring.api.model.MonitoredApi;
 import com.monitoring.api.model.MonitorStatus;
@@ -8,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -22,16 +23,17 @@ public class MonitoringService {
     private final Map<Long, MonitoredApi> monitors = new ConcurrentHashMap<>();
     private final Map<Long, Incident> incidents = new ConcurrentHashMap<>();
     private final AtomicLong incidentId = new AtomicLong(1000);
+    private final AtomicLong monitorId = new AtomicLong(10);
     private final Random random = new Random();
 
     public MonitoringService() {
-        MonitoredApi smsNode = new MonitoredApi(1L, "Direct Prod Single SMS Node2", "Production", "https://prod-sms-node2.internal/api/health", 2000, MonitorStatus.DOWN);
+        MonitoredApi smsNode = new MonitoredApi(1L, "Direct Prod Single SMS Node2", "Production", "https://prod-sms-node2.internal/sms/actuator/health", "/sms", AppServerType.TOMCAT, 2000, MonitorStatus.DOWN);
         smsNode.setLastError("Connection refused");
         smsNode.setResponseTimeMs(0);
         monitors.put(smsNode.getId(), smsNode);
 
-        monitors.put(2L, new MonitoredApi(2L, "User Profile API", "Production", "https://prod-users.internal/api/health", 1500, MonitorStatus.UP));
-        monitors.put(3L, new MonitoredApi(3L, "Payment Gateway API", "Production", "https://prod-pay.internal/api/health", 1200, MonitorStatus.SLOW));
+        monitors.put(2L, new MonitoredApi(2L, "User Profile API", "Production", "https://prod-users.internal/users/actuator/health", "/users", AppServerType.TOMCAT, 1500, MonitorStatus.UP));
+        monitors.put(3L, new MonitoredApi(3L, "Payment Gateway API", "Production", "https://prod-pay.internal/pay/actuator/health", "/pay", AppServerType.TOMCAT, 1200, MonitorStatus.SLOW));
 
         Incident initial = new Incident(
                 incidentId.getAndIncrement(),
@@ -51,6 +53,24 @@ public class MonitoringService {
                 .toList();
     }
 
+    public MonitoredApi addMonitor(CreateMonitorRequest request) {
+        long id = monitorId.getAndIncrement();
+        MonitoredApi newMonitor = new MonitoredApi(
+                id,
+                request.getName(),
+                request.getEnvironment(),
+                request.getUrl(),
+                request.getContextPath(),
+                request.getServerType(),
+                request.getExpectedTimeoutMs(),
+                MonitorStatus.UP
+        );
+        newMonitor.setResponseTimeMs(150);
+        newMonitor.setLastCheckedAt(Instant.now());
+        monitors.put(id, newMonitor);
+        return newMonitor;
+    }
+
     public List<Incident> getOpenIncidents() {
         return incidents.values().stream()
                 .filter(i -> i.getResolvedAt() == null)
@@ -67,6 +87,8 @@ public class MonitoringService {
                 + "Automated monitoring has detected an outage.\n"
                 + "- Resource: " + monitoredApi.getName() + "\n"
                 + "- Environment: " + monitoredApi.getEnvironment() + "\n"
+                + "- App Server: " + monitoredApi.getServerType() + "\n"
+                + "- Context Path: " + monitoredApi.getContextPath() + "\n"
                 + "- Status: " + monitoredApi.getStatus() + "\n"
                 + "- Reason: " + monitoredApi.getLastError() + "\n"
                 + "- Detector: Applications Manager\n"

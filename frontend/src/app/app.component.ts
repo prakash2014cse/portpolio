@@ -1,18 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MonitoringApiService } from './services/monitoring-api.service';
-import { Incident, Monitor } from './models/monitor.model';
+import { CreateMonitorRequest, Incident, Monitor, ServerType } from './models/monitor.model';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   monitors: Monitor[] = [];
   incidents: Incident[] = [];
   alertEmail = 'Loading alert preview...';
+
+  newMonitor: CreateMonitorRequest = {
+    name: '',
+    environment: 'Production',
+    url: '',
+    contextPath: '',
+    serverType: 'TOMCAT',
+    expectedTimeoutMs: 2000
+  };
+
+  serverTypes: ServerType[] = ['TOMCAT', 'SPRING_BOOT', 'OTHER'];
 
   constructor(private readonly monitoringApi: MonitoringApiService) {}
 
@@ -31,6 +43,24 @@ export class AppComponent implements OnInit {
 
     this.monitoringApi.getOpenIncidents().subscribe((data) => {
       this.incidents = data;
+    });
+  }
+
+  addMonitor(): void {
+    if (!this.newMonitor.name || !this.newMonitor.url) {
+      return;
+    }
+
+    this.monitoringApi.addMonitor(this.newMonitor).subscribe(() => {
+      this.newMonitor = {
+        name: '',
+        environment: 'Production',
+        url: '',
+        contextPath: '',
+        serverType: 'TOMCAT',
+        expectedTimeoutMs: 2000
+      };
+      this.refresh();
     });
   }
 
