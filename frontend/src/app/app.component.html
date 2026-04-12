@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>API Monitoring Console</h1>
+  <p>Monitor Spring Boot APIs for outages, slowness, hangs, stopped services, and errors.</p>
+
+  <div class="card">
+    <h2>Monitored APIs</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Environment</th>
+          <th>Status</th>
+          <th>Response Time</th>
+          <th>Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let monitor of monitors">
+          <td>{{ monitor.name }}</td>
+          <td>{{ monitor.environment }}</td>
+          <td><span class="badge" [ngClass]="statusClass(monitor.status)">{{ monitor.status }}</span></td>
+          <td>{{ monitor.responseTimeMs }} ms</td>
+          <td>{{ monitor.lastError || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Open Incidents</h2>
+    <ul>
+      <li *ngFor="let incident of incidents">
+        <strong>{{ incident.severity }}</strong> - {{ incident.monitorName }} - {{ incident.reason }}<br/>
+        <small>{{ incident.details }} | Detector: {{ incident.detector }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Auto-generated Alert Email</h2>
+    <pre>{{ alertEmail }}</pre>
+  </div>
+</div>
