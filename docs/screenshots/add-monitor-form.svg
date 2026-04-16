@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
+  <rect width="1280" height="720" fill="#f4f7fb"/>
+  <rect width="1280" height="70" fill="#1976d2"/>
+  <text x="24" y="44" font-size="28" fill="white" font-family="Arial">Screen 2: Add Monitor Form</text>
+  <rect x="40" y="100" width="1200" height="580" fill="white" stroke="#d0d7de"/>
+  <text x="70" y="150" font-size="24" font-family="Arial" fill="#1f2328">Add Application to Monitor</text>
+  <rect x="70" y="190" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="80" y="220" font-size="18" font-family="Arial">Application Name</text>
+  <rect x="450" y="190" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="460" y="220" font-size="18" font-family="Arial">Environment</text>
+  <rect x="830" y="190" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="840" y="220" font-size="18" font-family="Arial">Health URL</text>
+  <rect x="70" y="260" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="80" y="290" font-size="18" font-family="Arial">Context Path</text>
+  <rect x="450" y="260" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="460" y="290" font-size="18" font-family="Arial">Server Type: TOMCAT</text>
+  <rect x="830" y="260" width="350" height="45" fill="#fff" stroke="#a9b1b7"/><text x="840" y="290" font-size="18" font-family="Arial">Timeout (ms)</text>
+  <rect x="70" y="330" width="180" height="48" fill="#1976d2" rx="6"/><text x="104" y="362" font-size="20" font-family="Arial" fill="white">Add Monitor</text>
+</svg>

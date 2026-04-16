@@ -1,0 +1,62 @@
+<div class="container">
+  <h1>API Monitoring Console</h1>
+  <p>Monitor Spring Boot/Tomcat APIs for outages, slowness, hangs, stopped services, and errors.</p>
+
+  <div class="card">
+    <h2>Add Application to Monitor</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <input [(ngModel)]="newMonitor.name" placeholder="Application Name" />
+      <input [(ngModel)]="newMonitor.environment" placeholder="Environment" />
+      <input [(ngModel)]="newMonitor.url" placeholder="Health URL" />
+      <input [(ngModel)]="newMonitor.contextPath" placeholder="Context Path (e.g. /sms)" />
+      <select [(ngModel)]="newMonitor.serverType">
+        <option *ngFor="let serverType of serverTypes" [value]="serverType">{{ serverType }}</option>
+      </select>
+      <input type="number" [(ngModel)]="newMonitor.expectedTimeoutMs" placeholder="Timeout ms" />
+    </div>
+    <button style="margin-top:10px" (click)="addMonitor()">Add Monitor</button>
+  </div>
+
+  <div class="card">
+    <h2>Monitored APIs</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Server</th>
+          <th>Context</th>
+          <th>Environment</th>
+          <th>Status</th>
+          <th>Response Time</th>
+          <th>Error</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let monitor of monitors">
+          <td>{{ monitor.name }}</td>
+          <td>{{ monitor.serverType }}</td>
+          <td>{{ monitor.contextPath || '-' }}</td>
+          <td>{{ monitor.environment }}</td>
+          <td><span class="badge" [ngClass]="statusClass(monitor.status)">{{ monitor.status }}</span></td>
+          <td>{{ monitor.responseTimeMs }} ms</td>
+          <td>{{ monitor.lastError || '-' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Open Incidents</h2>
+    <ul>
+      <li *ngFor="let incident of incidents">
+        <strong>{{ incident.severity }}</strong> - {{ incident.monitorName }} - {{ incident.reason }}<br/>
+        <small>{{ incident.details }} | Detector: {{ incident.detector }}</small>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Auto-generated Alert Email</h2>
+    <pre>{{ alertEmail }}</pre>
+  </div>
+</div>
